@@ -17,9 +17,9 @@
 
     <!--[if lt IE 9]>
     <script type="text/javascript"
-            src="http://taxi7.toruneko.net<?php echo $this->assets; ?>js/html5shiv.min.js"></script>
+            src="http://assets.toruneko.net/js/html5shiv.min.js"></script>
     <script type="text/javascript"
-            src="http://taxi7.toruneko.net<?php echo $this->assets; ?>js/respond.min.js"></script>
+            src="http://assets.toruneko.net/js/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>

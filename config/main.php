@@ -30,30 +30,32 @@ return array(
         ),
 
         'db' => array(
-            'connectionString' => 'mysql:host=sqld.duapp.com;port=4050;dbname=mKbzOjIRwJhRQvbsyHDe',
+            'connectionString' => 'mysql:host=127.0.0.1;port=3306;dbname=taxi7',
             'emulatePrepare' => true,
             'schemaCachingDuration' => 86400,
-            'username' => "77d93fa2c471405191d15571c02e508f",
-            'password' => "9e7170398e164dfbb1bfeb5378269697",
+            'username' => "root",
+            'password' => "toruneko",
             'charset' => 'utf8',
         ),
 
+        'session' => array(
+            'class' => 'CCacheHttpSession',
+        ),
+
         'cache' => array(
-            'class' => 'BaeMemCache',
-            'host' => 'redis.duapp.com',
-            'port' => '80',
-            'username' => '77d93fa2c471405191d15571c02e508f',
-            'password' => '9e7170398e164dfbb1bfeb5378269697',
-            'dbname' => 'DATjkLvSSAgDtATmsWbw'
+            'class' => 'CRedisCache',
+            'hostname' => '127.0.0.1',
+            'port' => 6379,
+            'database' => 2,
+            'options' => STREAM_CLIENT_CONNECT,
         ),
 
         'redis' => array(
-            'class' => 'BaeRedisCache',
-            'host' => 'redis.duapp.com',
-            'port' => '80',
-            'username' => '77d93fa2c471405191d15571c02e508f',
-            'password' => '9e7170398e164dfbb1bfeb5378269697',
-            'dbname' => 'DATjkLvSSAgDtATmsWbw'
+            'class' => 'CRedisCache',
+            'hostname' => '127.0.0.1',
+            'port' => 6379,
+            'database' => 3,
+            'options' => STREAM_CLIENT_CONNECT,
         ),
 
         'errorHandler' => array(
@@ -64,7 +66,7 @@ return array(
             'class' => 'CLogRouter',
             'routes' => array(
                 array(
-                    'class' => 'BaeLogRoute',
+                    'class' => 'CFileLogRoute',
                     'levels' => 'error, warning, info',
                 ),
             ),
