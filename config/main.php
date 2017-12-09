@@ -42,14 +42,6 @@ return array(
             'class' => 'CCacheHttpSession',
         ),
 
-        'cache' => array(
-            'class' => 'CRedisCache',
-            'hostname' => '127.0.0.1',
-            'port' => 6379,
-            'database' => 2,
-            'options' => STREAM_CLIENT_CONNECT,
-        ),
-
         'redis' => array(
             'class' => 'CRedisCache',
             'hostname' => '127.0.0.1',
