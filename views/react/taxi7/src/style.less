@@ -1,0 +1,242 @@
+@account   : ~"account";
+
+.common() {
+  &-block {
+    padding: 20px 30px;
+  }
+  
+  &-title {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 50px;
+  }
+  
+  &-operation {
+    li {
+      padding-right: 10px;
+      float: left;
+    }
+  }
+}
+
+.@{account} {
+  &-sidebar {
+    background: #fff;
+    min-height: 1000px;
+    border-right: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0,0,0, 0.2);
+    
+    .td-menu-item {
+      height: 50px!important;
+      line-height: 50px!important;
+      font-size: 16px!important;
+      
+      &-group-title {
+        font-size: 14px;
+      }
+    }
+  }
+  
+  &-content {
+    padding: 30px 20px;
+    
+    &-container {
+      background: #fff;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    }
+  }
+  
+  &-overview {
+    .common();
+    
+    &-count {
+      line-height: 50px;
+      color: rgba(0,0,0,.54);
+    }
+    
+    &-code {
+      padding: 10px;
+      width: 90%;
+      border-radius: 2px;
+      font-size: 10pt;
+      color: rgba(0,0,0,.54);
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+      background-color: #eceff1 !important;
+    }
+  }
+  
+  &-usermanager {
+    .common();
+    
+    &-block:not(:first-child) {
+      padding: 0;
+    }
+    
+    &-dialog {
+      .td-dialog-header {
+        font-size: 24px;
+      }
+      
+      .td-row {
+        line-height: 40px;
+      }
+      
+      .td-checkbox-inner {
+        width: 16px;
+        height: 16px;
+        
+        &:after {
+          width: 7px;
+          height: 11px;
+        }
+      }
+    }
+  }
+  
+  &-groupmanager {
+    .common();
+    
+    &-block:not(:first-child) {
+      padding: 0;
+    }
+  }
+  
+  &-policy {
+    .common();
+    
+    &-block {
+      padding: 0;
+      
+      .td-menu-item {
+        font-size: 16px;
+        
+        &:first-child {
+          margin-left: ~'calc(50% - 112px)';
+        }
+      }
+    }
+    
+    &-code {
+      padding: 10px;
+      border-radius: 2px;
+      font-size: 10pt;
+      color: rgba(0,0,0,.54);
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+      background-color: #eceff1 !important;
+    }
+  }
+}
+
+.td-confirm-content {
+  margin-left: 0;
+}
+
+.td-shuttle {
+  &-box {
+    outline: none;
+    
+    &:first-child {
+      float: left!important;
+    }
+    
+    &:last-child {
+      float: right !important;
+    }
+    
+    &-title {
+      border-left: 1px solid #e1e6eb;
+      border-right: 1px solid #e1e6eb;
+      border-top: 1px solid #e1e6eb;
+      background-color: #F5F6FA;
+      padding-left: 5px;
+      line-height: 30px;
+      
+      &-left {
+        display: inline-block;
+        padding: 5px;
+      }
+      
+      &-right {
+        display: inline-block;
+        float: right;
+        padding: 5px 20px;
+        border-left: 1px solid #e1e6eb;
+      }
+    }
+    
+    &-search {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 32px;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      line-height: 32px;
+      border-radius: 0px;
+      transition: none;
+      font-size: 12px;
+      color: #555555;
+      vertical-align: middle;
+      background-color: #ffffff;
+      background-image: none;
+      
+      input {
+        width: 100%;
+      }
+    }
+    
+    &-list {
+      border: 1px solid #e1e6eb;
+      background-color: #FFF;
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 100%;
+      min-height: 220px;
+      
+      &-item {
+        cursor: pointer;
+        white-space: normal !important;
+        outline: none;
+        height: auto;
+        line-height: normal;
+        padding: 10px;
+        text-indent: 0;
+        overflow: hidden;
+        border-bottom: 1px solid #DDD;
+        text-overflow: ellipsis;
+        
+        &:hover {
+          background: #f9f9f9;
+        }
+        
+        &-left {
+          display: inline-block;
+          
+          div:first-child {
+            line-height: 12px;
+            margin-bottom: 8px;
+            color: #000;
+          }
+          
+          div:last-child {
+            line-height: 12px;
+            color: #999;
+          }
+        }
+        
+        &-right {
+          display: inline-block;
+          float: right;
+          padding: 5px 0;
+          color: #000;
+        }
+      }
+    }
+    
+    .tdicon-search {
+      position: absolute;
+      right: 5px;
+      top: 10px;
+      font-size: 12px;
+    }
+  }
+}

@@ -16,26 +16,51 @@ class Controller extends RedController
     {
         parent::init();
 
-        $this->cs->registerPackage('bootstrap');
+        $this->setPageTitle(Yii::app()->name . " 管理系统");
     }
 
-    public function setName($name)
+    public function getFilters()
     {
-        $this->name .= $name;
+        return array(
+            array('AccessControl')
+        );
     }
 
-    public function setKeyword($keyword)
+    /*
+     * @see RedController::accessDenied()
+     */
+    public function accessDenied($role)
     {
-        $this->keyword[] = $keyword;
+        $this->response(403, '没有访问权限');
     }
 
-    public function setDescription($desc)
-    {
-        $this->description = $desc;
-    }
-
+    /*
+     * @see RedController::allowAjaxRequest()
+     */
     public function allowAjaxRequest()
     {
         return true;
+    }
+
+    /*
+     * @see RedController::allowHttpRequest()
+     */
+    public function allowHttpRequest()
+    {
+        return false;
+    }
+
+    /*
+     * @see RedController::allowGuest()
+     */
+    public function allowGuest()
+    {
+        $this->redirect($this->createUrl('account/login'));
+    }
+
+    public function missingAction($actionID)
+    {
+        throw new CHttpException(200, Yii::t('yii', 'The system is unable to find the requested action "{action}".',
+            array('{action}' => $actionID == '' ? $this->defaultAction : $actionID)));
     }
 }

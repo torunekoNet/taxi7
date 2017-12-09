@@ -11,7 +11,9 @@ class IndexController extends Controller
 
     public function actionIndex()
     {
-        $this->request->redirect($this->app->createUrl('admin'));
+        $this->render('index', array(
+            'jsVersion' => '1512802102'
+        ));
     }
 
     public function actionError()
@@ -25,5 +27,20 @@ class IndexController extends Controller
         } else {
             $this->render('error');
         }
+    }
+
+    public function allowAjaxRequest()
+    {
+        return false;
+    }
+
+    public function allowHttpRequest()
+    {
+        return true;
+    }
+
+    public function getFilters()
+    {
+        return array();
     }
 }

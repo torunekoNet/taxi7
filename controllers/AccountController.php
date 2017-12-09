@@ -39,35 +39,15 @@ class AccountController extends Controller
         $this->redirect($this->createUrl('login'));
     }
 
-    public function actionEdit()
+    public function actionSession()
     {
-        $model = new UserForm();
-
-        if (($post = $this->request->getPost('UserForm', false)) !== false) {
-            $post['state'] = -1;
-            $model->attributes = $post;
-            if ($model->save()) {
-                $this->response(200, '更新用户成功');
-            } else {
-                $this->response(500, '更新用户失败');
-            }
-        } else if (($id = $this->request->getQuery('id', 0)) != false) {
-            if (($user = User::model()->findByPk($id)) != false) {
-                $model->attributes = array(
-                    'id' => $user->id,
-                    'username' => $user->username,
-                    'realname' => $user->realname,
-                    'nickname' => $user->nickname,
-                    'email' => $user->email,
-                    'state' => -1,
-                );
-
-                $this->render('edit', array(
-                    'model' => $model,
-                ));
-            }
+        if (Yii::app()->user->isGuest) {
+            $this->response(-301, "redirect");
         } else {
-            $this->response(404, '参数错误');
+            $this->response(0, "success", array(
+                'username' => Yii::app()->user->username,
+                'realname' => Yii::app()->user->realname
+            ));
         }
     }
 

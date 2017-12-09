@@ -10,12 +10,12 @@ return array(
         'application.components.*',
         'application.components.filters.*',
     ),
-
-    'modules' => array(
-        'admin' => array(
-            'class' => 'application.modules.admin.AdminModule'
-        )
-    ),
+//
+//    'modules' => array(
+//        'admin' => array(
+//            'class' => 'application.modules.admin.AdminModule'
+//        )
+//    ),
 
     'components' => array(
         'user' => array(
@@ -27,6 +27,13 @@ return array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'urlSuffix' => '',
+            'rules' => array(
+                array('index/index', 'pattern' => 'index'),
+                array('account/login', 'pattern' => 'login'),
+                array('account/logout', 'pattern' => 'logout'),
+                array('account/session', 'pattern' => 'session'),
+                array('index/error', 'pattern' => 'error'),
+            ),
         ),
 
         'db' => array(
@@ -40,6 +47,14 @@ return array(
 
         'session' => array(
             'class' => 'CCacheHttpSession',
+        ),
+
+        'cache' => array(
+            'class' => 'CRedisCache',
+            'hostname' => '127.0.0.1',
+            'port' => 6379,
+            'database' => 2,
+            'options' => STREAM_CLIENT_CONNECT,
         ),
 
         'redis' => array(
@@ -68,28 +83,5 @@ return array(
     'params' => array(
         'upload' => 'upload',
         'version' => 'V1.0',
-        //上下级权限检测
-        'allowCheck' => array(
-            'auth' => array(
-                'assign' => array(
-                    array('role', 'role', 'post'),
-                    array('operation', 'operation', 'post'),
-                ),
-                'assignGroup' => array(
-                    array('auth', 'group', 'get'),
-                    array('user', 'user', 'get'),
-                ),
-                'assignRole' => array(
-                    array('auth', 'role', 'get'),
-                    array('user', 'user', 'get')
-                ),
-            ),
-            'user' => array(
-                'edit' => array(
-                    array('id', 'user', 'get'),
-                    array(array('UserForm', 'id'), 'user', 'post'),
-                )
-            ),
-        ),
     ),
 );

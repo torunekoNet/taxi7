@@ -14,19 +14,19 @@ class LoginForm extends RedLoginForm
     public function authenticate($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $this->_identity = new AdminIdentity($this->username, $this->password);
+            $this->_identity = new UserIdentity($this->username, $this->password);
             if (!$this->_identity->authenticate()) {
                 switch ($this->_identity->errorCode) {
-                    case AdminIdentity::ERROR_USERNAME_INVALID:
+                    case UserIdentity::ERROR_USERNAME_INVALID:
                         $name = 'username';
                         break;
-                    case AdminIdentity::ERROR_PASSWORD_INVALID:
+                    case UserIdentity::ERROR_PASSWORD_INVALID:
                         $name = 'password';
                         break;
-                    case AdminIdentity::ERROR_NOT_LOGIN:
+                    case UserIdentity::ERROR_NOT_LOGIN:
                         $name = 'username';
                         break;
-                    case AdminIdentity::ERROR_UNKNOWN_IDENTITY:
+                    case UserIdentity::ERROR_UNKNOWN_IDENTITY:
                         $name = 'unknown';
                         break;
                     default:

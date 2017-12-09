@@ -66,3 +66,6 @@ Session.vim
 
 framework/
 runtime/
+
+node_modules/
+dist/

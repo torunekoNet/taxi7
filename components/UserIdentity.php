@@ -5,29 +5,49 @@
  * It contains the authentication method that checks if the provided
  * data can identity the user.
  */
-class UserIdentity extends CUserIdentity
+class UserIdentity extends RedUserIdentity
 {
-    /**
-     * Authenticates a user.
-     * The example implementation makes sure if the username and password
-     * are both 'demo'.
-     * In practical applications, this should be changed to authenticate
-     * against some persistent user identity storage (e.g. database).
-     * @return boolean whether authentication succeeds.
-     */
+    const ERROR_NOT_LOGIN = 3;
+
+    public $errorMessage = '未知错误';
+
     public function authenticate()
     {
-        $users = array(
-            // username => password
-            'demo' => 'demo',
-            'admin' => 'admin',
-        );
-        if (!isset($users[$this->username]))
+        $admin = User::model()->find('`t`.`username`=:u', array('u' => $this->username));
+        if (empty($admin)) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        elseif ($users[$this->username] !== $this->password)
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        else
-            $this->errorCode = self::ERROR_NONE;
+            $this->errorMessage = '用户名不存在';
+        } else {
+            if ($admin->approved <= 0 || $admin->state == 1) {
+                $this->errorCode = self::ERROR_NOT_LOGIN;
+                $this->errorMessage = '用户名已被锁定';
+
+            } elseif (!CPasswordHelper::verifyPassword($this->password, $admin->password)) {
+                $this->errorCode = self::ERROR_PASSWORD_INVALID;
+                $this->errorMessage = '密码错误,剩余尝试次数：' . ($admin->approved - 1);
+                $admin->approved -= 1;
+                $admin->update();
+            } else {
+                $this->errorCode = self::ERROR_NONE;
+                $this->setPersistentStates(array_merge($admin->getAttributes(), array(
+                    'last_login_time' => $admin->last_login_time,
+                    'last_login_ip' => $admin->last_login_ip,
+                    'sign_up_time' => $admin->sign_up_time,
+                    'sign_up_ip' => $admin->sign_up_ip,
+                )));
+                $this->afterLogin($admin);
+            }
+        }
         return !$this->errorCode;
+    }
+
+    public function afterLogin($db)
+    {
+        $db->attributes = array(
+            'last_login_time' => time(),
+            'last_login_ip' => Yii::app()->request->getUserHostAddress(),
+            'approved' => 5
+        );
+        $db->update();
     }
 }

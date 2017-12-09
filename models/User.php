@@ -57,12 +57,12 @@ class User extends RedActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'userRoles' => array(self::HAS_MANY, 'UserRole', 'user_id', 'with' => array(
-                'role' => array(self::BELONGS_TO, 'Role', 'role_id')
-            )),
-            'userGroups' => array(self::HAS_MANY, 'UserGroup', 'user_id', 'with' => array(
-                'group' => array(self::BELONGS_TO, 'Group', 'group_id')
-            )),
+//            'userRoles' => array(self::HAS_MANY, 'UserRole', 'user_id', 'with' => array(
+//                'role' => array(self::BELONGS_TO, 'Role', 'role_id')
+//            )),
+//            'userGroups' => array(self::HAS_MANY, 'UserGroup', 'user_id', 'with' => array(
+//                'group' => array(self::BELONGS_TO, 'Group', 'group_id')
+//            )),
         );
     }
 
