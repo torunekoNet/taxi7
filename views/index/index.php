@@ -12,11 +12,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Taxi7 管理系统 - 汽车配件</title>
-    <link rel="stylesheet" href="//assets.toruneko.net/tdicon/iconfont.css?v=<?php echo $jsVersion ?>">
-    <link rel="stylesheet" href="/assets/refrain/refrain.css?v=<?php echo $jsVersion ?>">
-    <link rel="stylesheet" href="/assets/taxi7/taxi7.css?v=<?php echo $jsVersion ?>">
-    <script src="//assets.toruneko.net/dll/vendor1.js?v=<?php echo $jsVersion ?>"></script>
-    <script src="//assets.toruneko.net/dll/vendor2.js?v=<?php echo $jsVersion ?>"></script>
+    <link rel="stylesheet" href="//assets.toruneko.net/taxi7/icon/iconfont.css?v=<?php echo $jsVersion ?>">
+    <link rel="stylesheet" href="//assets.toruneko.net/taxi7/refrain/refrain.css?v=<?php echo $jsVersion ?>">
+    <link rel="stylesheet" href="//assets.toruneko.net/taxi7/product/product.css?v=<?php echo $jsVersion ?>">
+    <script src="//assets.toruneko.net/taxi7/dll/vendor1.js?v=<?php echo $jsVersion ?>"></script>
+    <script src="//assets.toruneko.net/taxi7/dll/vendor2.js?v=<?php echo $jsVersion ?>"></script>
     <script>window.domain = "http://taxi7.toruneko.net"</script>
 </head>
 <body>
@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-<script src="/assets/refrain/refrain.js?v=<?php echo $jsVersion ?>"></script>
-<script src="/assets/taxi7/taxi7.js?v=<?php echo $jsVersion ?>"></script>
+<script src="//assets.toruneko.net/taxi7/refrain/refrain.js?v=<?php echo $jsVersion ?>"></script>
+<script src="//assets.toruneko.net/taxi7/product/product.js?v=<?php echo $jsVersion ?>"></script>
 </body>
 </html>
