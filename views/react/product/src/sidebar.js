@@ -15,7 +15,7 @@ const menus = [{
     }, {
         key: 'data',
         display: '流水数据',
-        path: '/assembly'
+        path: '/product/assembly'
     }]
 }];
 

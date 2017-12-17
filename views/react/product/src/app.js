@@ -35,7 +35,7 @@ class App extends Component {
                     />
                     <Route
                         exact
-                        path="/assembly"
+                        path="/product/assembly"
                         render={props => (
                             <LazyRoute {...props} component={import("./assembly/page")}/>
                         )}
