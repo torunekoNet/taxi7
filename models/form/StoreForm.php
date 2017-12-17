@@ -58,7 +58,7 @@ class StoreForm extends CFormModel
                 'name' => $this->name,
                 'price' => round($this->price * 100, 0),
                 'comment' => $this->comment,
-                'store' => 0,
+                'store' => 2147483647, // 直接设置为最大值
                 'sales' => 0,
                 'gmt_create' => time(),
                 'last_stor_number' => 0,

@@ -8,10 +8,6 @@
  */
 class Controller extends RedController
 {
-    public $name;
-    public $keyword = array();
-    public $description = '';
-
     public function init()
     {
         parent::init();
@@ -21,18 +17,9 @@ class Controller extends RedController
 
     public function getFilters()
     {
-        return array(
-            array('AccessControl')
-        );
+        return array();
     }
 
-    /*
-     * @see RedController::accessDenied()
-     */
-    public function accessDenied($role)
-    {
-        $this->response(403, '没有访问权限');
-    }
 
     /*
      * @see RedController::allowAjaxRequest()
@@ -47,7 +34,7 @@ class Controller extends RedController
      */
     public function allowHttpRequest()
     {
-        return false;
+        return true;
     }
 
     /*

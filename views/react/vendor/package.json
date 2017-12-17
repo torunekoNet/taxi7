@@ -4,7 +4,8 @@
  "author": "zhengfeng.yao",
  "license": "MIT",
  "scripts": {
-  "release": "tdtool dll"
+  "dev": "export NODE_ENV=development && tdtool dll",
+  "release": "export NODE_ENV=production && tdtool dll"
  },
  "dependencies": {
   "es5-shim": "4.5.9",

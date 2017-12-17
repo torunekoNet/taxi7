@@ -10,12 +10,6 @@ return array(
         'application.components.*',
         'application.components.filters.*',
     ),
-//
-//    'modules' => array(
-//        'admin' => array(
-//            'class' => 'application.modules.admin.AdminModule'
-//        )
-//    ),
 
     'components' => array(
         'user' => array(
@@ -28,7 +22,7 @@ return array(
             'showScriptName' => false,
             'urlSuffix' => '',
             'rules' => array(
-                array('index/index', 'pattern' => 'index'),
+                array('index/index', 'pattern' => ''),
                 array('account/login', 'pattern' => 'login'),
                 array('account/logout', 'pattern' => 'logout'),
                 array('account/session', 'pattern' => 'session'),

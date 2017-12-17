@@ -11,6 +11,7 @@ class IndexController extends Controller
 
     public function actionIndex()
     {
+        $this->layout = '/layouts/react';
         $this->render('index', array(
             'jsVersion' => '1512802102'
         ));

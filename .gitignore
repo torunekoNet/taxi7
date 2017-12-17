@@ -68,4 +68,6 @@ framework/
 runtime/
 
 node_modules/
+dll/
+tdcicon/
 dist/

@@ -5,7 +5,7 @@ const Config = require('tdtool').Config;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const TARGET = process.env.npm_lifecycle_event;
 const isDebug = process.env.NODE_ENV !== 'production';
-const dllPath = path.resolve(process.cwd(), isDebug ? '../vendor' : '../../../../assets', 'dll');
+const dllPath = path.resolve(__dirname, isDebug ? '../vendor' : '../../../../assets', 'dll');
 const vendor1 = new webpack.DllReferencePlugin({
   manifest: require(path.join(dllPath, 'vendor1.js.json')),
   name: 'vendor1_library'
@@ -20,7 +20,7 @@ const clientConfig = new Config({
   entry: {
     [pkg.name]: './src/main'
   },
-  sourceMap: TARGET == 'dev',
+  sourceMap: true,
   devtool: "source-map",
   filename: isDebug ? '[name].js?[hash]' : '[name].js',
   minimize: !isDebug,
@@ -38,14 +38,14 @@ const clientConfig = new Config({
   env: {
     __DEV__: isDebug
   },
-  template: (isDebug && TARGET !== 'build') ? '../refrain.html' : false,
+  template: (isDebug && TARGET !== 'build') ? '../product.html' : false,
   devServer: {
     inline: true,
     historyApiFallback: true,
     hot: true,
     disableHostCheck: true,
     proxy: {
-      '**': 'http://taxi7.toruneko.net'
+      '**': 'http://127.0.0.1'
     }
   }
 });
@@ -57,6 +57,7 @@ if (isDebug) {
   if (TARGET !== 'build') {
     clientConfig.add('plugin.copydll', new CopyWebpackPlugin([{ from: '../vendor/dll', to: 'dll'}]));
     clientConfig.add('plugin.copytdcicon', new CopyWebpackPlugin([{ from: '../vendor/tdcicon', to: 'tdcicon'}]));
+    clientConfig.add('plugin.copyrefrain', new CopyWebpackPlugin([{ from: '../refrain/dist', to: 'refrain'}]));
   }
   clientConfig.add('output.path', path.join(__dirname, 'dist'));
 } else {
@@ -73,7 +74,7 @@ if (isDebug) {
     )
   );
   clientConfig.add('output.path', path.resolve(releasePath, pkg.name));
-  clientConfig.add('output.publicPath', '/assets/refrain');
+  clientConfig.add('output.publicPath', '/assets/product/');
 }
 clientConfig.add('output.chunkFilename', '[name].[chunkhash].chunk.js');
 
