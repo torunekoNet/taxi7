@@ -48,9 +48,9 @@ export default class Assembly extends Component {
                                 rowKey="id"
                             >
                                 <Column title="名称" dataIndex="cargo_name" key="cargo_name"/>
-                                <Column title="数量" dataIndex="amount" key="amount"/>
-                                <Column title="去向" dataIndex="to" key="to"/>
-                                <Column title="时间" dataIndex="gmt_create" key="gmt_create"
+                                <Column title="数量" dataIndex="amount" key="amount" width={80}/>
+                                <Column title="去向" dataIndex="to" key="to" width={80}/>
+                                <Column title="时间" dataIndex="gmt_create" key="gmt_create" width={160}
                                         render={time => moment(parseInt(time) * 1000).format('YYYY-MM-DD HH:mm:ss')}/>
                                 <Column title="描述" dataIndex="comment" key="comment" width={300}/>
                             </Table>

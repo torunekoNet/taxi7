@@ -60,7 +60,7 @@ export default class Product extends Component {
                             >
                                 <Column title="编号" dataIndex="number" key="number"/>
                                 <Column title="名称" dataIndex="name" key="name"/>
-                                <Column title="数量" dataIndex="sales" key="sales"/>
+                                <Column title="数量" dataIndex="sales" key="sales" width={100}/>
                                 <Column title="描述" dataIndex="comment" key="comment"/>
                                 <Column title="操作" dataIndex="operation" key="operation" width="180px" fixed="right"
                                         render={(text, record) => (

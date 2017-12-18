@@ -20,14 +20,12 @@ export default class SalesForm extends Component {
                 return;
             }
 
-            let comment = values.type === 1 ? '新' : '旧';
-            comment += (' ' + values.from + ' ' + (values.comment || ''));
             productStore.salesProduct({
                 'productId': selectedProduct.id,
                 'amount': parseInt(values.amount),
                 'price': 1,
                 'to': values.to,
-                'comment': comment
+                'comment': values.comment || ''
             }).then(res => {
                 if (res.status == 0) {
                     Message.success(res.info);
@@ -53,22 +51,11 @@ export default class SalesForm extends Component {
                 okText="确定"
                 cancelText="取消"
                 maskClosable={false}
+                width={350}
             >
                 <Form>
                     <Row>
-                        <Col span={12}>
-                            <FormItem>
-                                <FormControl name="type" initialValue={1}>
-                                    <RadioGroup>
-                                        <Radio value={1}>新</Radio>
-                                        <Radio value={2}>旧</Radio>
-                                    </RadioGroup>
-                                </FormControl>
-                            </FormItem>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
+                        <Col span={20}>
                             <FormItem>
                                 <FormControl name="amount" initialValue={1}
                                              rules={[{
@@ -83,16 +70,7 @@ export default class SalesForm extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={12}>
-                            <FormItem>
-                                <FormControl name="from" rules={[{required: true, message: '请输入来源'}]}>
-                                    <Input addonBefore="来源"/>
-                                </FormControl>
-                            </FormItem>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
+                        <Col span={20}>
                             <FormItem>
                                 <FormControl name="to" rules={[{required: true, message: '请输入去向'}]}>
                                     <Input addonBefore="去向"/>
@@ -101,7 +79,7 @@ export default class SalesForm extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={12}>
+                        <Col span={20}>
                             <FormItem>
                                 <FormControl name="comment">
                                     <Textarea placeholder='备注内容'/>
