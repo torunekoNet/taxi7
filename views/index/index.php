@@ -23,11 +23,8 @@
 <body>
 <div id="app">
     <div class="td-layout">
-        <div id="refrain" class="refrain-header td-layout-header"></div>
         <div class="td-layout td-layout-has-sider">
-            <div id="refrain-sidebar"></div>
             <div id="refrain-content" class="td-layout-content"></div>
-            <div id="refrain-waiting" class="td-layout-content"></div>
         </div>
     </div>
 </div>
