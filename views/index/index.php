@@ -10,8 +10,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Taxi7 管理系统 - 汽车配件</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//assets.toruneko.net/taxi7/icon/iconfont.css?v=<?php echo $jsVersion ?>">
     <link rel="stylesheet" href="//assets.toruneko.net/taxi7/refrain/refrain.css?v=<?php echo $jsVersion ?>">
     <link rel="stylesheet" href="//assets.toruneko.net/taxi7/product/product.css?v=<?php echo $jsVersion ?>">

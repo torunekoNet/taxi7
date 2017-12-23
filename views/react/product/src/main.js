@@ -15,10 +15,6 @@ if (__DEV__) {
   window.accountStores = stores;
 }
 
-if (window.setSidebarKey) {
-  window.setSidebarKey('gateway');
-}
-
 ReactDOM.render(
   <Router>
     <Provider {...stores}>

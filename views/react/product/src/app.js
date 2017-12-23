@@ -11,26 +11,22 @@ class App extends Component {
     render() {
         return (
             <Layout>
-                <Sider
-                    trigger={null}
-                    width={176}
-                    className="account-sidebar"
-                >
+                <div className="account-sidebar">
                     <Sidebar/>
-                </Sider>
+                </div>
                 <Content>
                     <Route
                         exact
                         path="/"
                         render={props => (
-                            <LazyRoute {...props} component={import("./product/page")}/>
+                            <LazyRoute {...props} component={import("./product/page2")}/>
                         )}
                     />
                     <Route
                         exact
                         path="/product"
                         render={props => (
-                            <LazyRoute {...props} component={import("./product/page")}/>
+                            <LazyRoute {...props} component={import("./product/page2")}/>
                         )}
                     />
                     <Route

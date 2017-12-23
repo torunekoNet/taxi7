@@ -15,7 +15,7 @@ export default class Store {
     currentPage = 1;
 
     constructor() {
-        this.searchProducts(this.searchNumber, this.searchName, 1)
+        // this.searchProducts(this.searchNumber, this.searchName, 1)
     }
 
     urlencoded(data) {

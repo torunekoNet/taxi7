@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
 import moment from 'moment';
-import {Table, Button, Input, Row, Col, Message} from 'td-ui';
+import {Button, Input, Row, Col, Message, Pagination, Collapse} from 'td-ui';
 
-const Column = Table.Column;
-
+const Panel = Collapse.Panel;
 
 @inject('assemblyStore')
 @observer
@@ -18,42 +17,64 @@ export default class Assembly extends Component {
             <div className="account-app account-content">
                 <div className="account-content-container" style={{padding: 10}}>
                     <Row>
-                        <Col span={6}>
-                            <Input value={to} addonBefore="去向" style={{width: 150}}
+                        <Col span={16}>
+                            <Input value={to} addonBefore="去向"
                                    onChange={e => assemblyStore.setTo(e.target.value)
                                    }/>
                         </Col>
-                        <Col span={1}/>
-                        <Col span={6}>
-                            <Input value={comment} addonBefore="备注" style={{width: 150}}
-                                   onChange={e => assemblyStore.setComment(e.target.value)
-                                   }/>
-                        </Col>
-                        <Col span={1}/>
-                        <Col span={3}>
+                        <Col offset={2} span={3}>
                             <Button onClick={() => assemblyStore.searchAssembly(to, comment, 1)}>搜索</Button>
                         </Col>
                     </Row>
                     <Row style={{height: 15}}/>
                     <Row>
+                        <Col span={16}>
+                            <Input value={comment} addonBefore="备注"
+                                   onChange={e => assemblyStore.setComment(e.target.value)
+                                   }/>
+                        </Col>
+                    </Row>
+                    <Row style={{height: 15}}/>
+                    <Row>
                         <Col span={24}>
-                            <Table
-                                dataSource={list.toJS()}
-                                pagination={{
-                                    current: pager.currentPage + 1,
-                                    total: pager.itemCount,
-                                    pageSize: pager.pageSize,
-                                    onChange: (page) => assemblyStore.searchAssembly(to, comment, page)
-                                }}
-                                rowKey="id"
-                            >
-                                <Column title="名称" dataIndex="cargo_name" key="cargo_name"/>
-                                <Column title="数量" dataIndex="amount" key="amount" width={80}/>
-                                <Column title="去向" dataIndex="to" key="to" width={80}/>
-                                <Column title="时间" dataIndex="gmt_create" key="gmt_create" width={160}
-                                        render={time => moment(parseInt(time) * 1000).format('YYYY-MM-DD HH:mm:ss')}/>
-                                <Column title="描述" dataIndex="comment" key="comment" width={300}/>
-                            </Table>
+                            <Collapse activeKey={list.map(i => i.id)}>
+                                {
+                                    list.map(i => {
+                                        const time = moment(parseInt(i.gmt_create) * 1000).format('YYYY-MM-DD HH:mm:ss')
+                                        return (
+                                            <Panel
+                                                header={[
+                                                    <span key="title">{i.cargo_name}</span>,
+                                                    <Row key="content">
+                                                        <Col span={6}>
+                                                            去向:{i.to}
+                                                        </Col>
+                                                        <Col span={4}>
+                                                            数量:{i.amount}
+                                                        </Col>
+                                                        <Col span={14}>
+                                                            时间:{time}
+                                                        </Col>
+                                                    </Row>
+                                                ]}
+                                                key={i.id}>
+                                                <p>{i.comment}</p>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+                            </Collapse>
+                        </Col>
+                    </Row>
+                    <Row style={{height: 15}}/>
+                    <Row>
+                        <Col>
+                            <Pagination
+                                current={pager.currentPage + 1}
+                                total={pager.itemCount}
+                                pageSize={pager.pageSize}
+                                onChange={(page) => assemblyStore.searchAssembly(to, comment, page)}
+                            />
                         </Col>
                     </Row>
                 </div>
