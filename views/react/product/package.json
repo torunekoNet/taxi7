@@ -1,7 +1,7 @@
 {
  "name": "product",
  "version": "1.0.0",
- "author": "zhengfeng.yao",
+ "author": "jianhao.dai",
  "license": "MIT",
  "scripts": {
   "dev": "export NODE_ENV=development && tdtool start -h taxi7-dev.toruneko.net",

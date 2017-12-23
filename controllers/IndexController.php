@@ -13,7 +13,7 @@ class IndexController extends Controller
     {
         $this->layout = '/layouts/react';
         $this->render('index', array(
-            'jsVersion' => '1512802104'
+            'jsVersion' => '1512802105'
         ));
     }
 
