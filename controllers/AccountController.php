@@ -18,11 +18,11 @@ class AccountController extends Controller
 
     public function actionLogin()
     {
+        $returnUrl = $this->request->getQuery('returnUrl');
+        if (empty($returnUrl)) {
+            $returnUrl = $this->createUrl('index/index');
+        }
         if (!Yii::app()->user->isGuest) {
-            $returnUrl = $this->request->getQuery('returnUrl');
-            if (empty($returnUrl)) {
-                $returnUrl = $this->createUrl('index/index');
-            }
             $this->redirect($returnUrl);
         }
 
@@ -30,7 +30,7 @@ class AccountController extends Controller
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             if ($model->validate() && $model->login()) {
-                $this->redirect($this->createUrl('index/index'));
+                $this->redirect($returnUrl);
             }
         }
 
