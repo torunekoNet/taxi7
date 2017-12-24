@@ -43,7 +43,7 @@ class Controller extends RedController
     public function allowGuest()
     {
         $this->redirect($this->createUrl('account/login', array(
-            'returnUrl' => $this->request->requestUri
+            'returnUrl' => $this->request->getUrl()
         )));
     }
 
