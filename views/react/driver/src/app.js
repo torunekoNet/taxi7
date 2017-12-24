@@ -19,21 +19,21 @@ class App extends Component {
                         exact
                         path="/"
                         render={props => (
-                            <LazyRoute {...props} component={import("./product/page2")}/>
+                            <LazyRoute {...props} component={import("./rental/page")}/>
                         )}
                     />
                     <Route
                         exact
-                        path="/product"
+                        path="/rental/vehicle"
                         render={props => (
-                            <LazyRoute {...props} component={import("./product/page2")}/>
+                            <LazyRoute {...props} component={import("./vehicle/page")}/>
                         )}
                     />
                     <Route
                         exact
-                        path="/product/assembly"
+                        path="/rental/driver"
                         render={props => (
-                            <LazyRoute {...props} component={import("./assembly/page")}/>
+                            <LazyRoute {...props} component={import("./driver/page")}/>
                         )}
                     />
                 </Content>

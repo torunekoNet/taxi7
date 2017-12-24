@@ -23,6 +23,7 @@ return array(
             'urlSuffix' => '',
             'rules' => array(
                 array('index/index', 'pattern' => ''),
+                array('index/driver', 'pattern' => 'driver'),
                 array('account/login', 'pattern' => 'login'),
                 array('account/logout', 'pattern' => 'logout'),
                 array('account/session', 'pattern' => 'session'),

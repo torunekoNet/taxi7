@@ -17,6 +17,14 @@ class IndexController extends Controller
         ));
     }
 
+    public function actionDriver()
+    {
+        $this->layout = '/layouts/react';
+        $this->render('driver', array(
+            'jsVersion' => '1512802105'
+        ));
+    }
+
     public function actionError()
     {
         if ($error = Yii::app()->errorHandler->error) {

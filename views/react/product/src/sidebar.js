@@ -6,7 +6,7 @@ const Item = Menu.Item;
 const menus = [{
     key: 'gateway',
     display: '配件管理',
-    path: '/product'
+    path: '/'
 }, {
     key: 'data',
     display: '流水数据',

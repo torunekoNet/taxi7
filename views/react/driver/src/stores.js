@@ -1,11 +1,13 @@
 import AppStore from './appStore';
-import ProductStore from './product/store';
-import AssemblyStore from './assembly/store';
+import RentalStore from './rental/store';
+import VehicleStore from './vehicle/store';
+import DriverStore from './driver/store';
 
 const stores = {
-  appStore: new AppStore(),
-  productStore: new ProductStore(),
-  assemblyStore: new AssemblyStore()
+    appStore: new AppStore(),
+    rentalStore: new RentalStore(),
+    vehicleStore: new VehicleStore(),
+    driverStore: new DriverStore()
 };
 
 export default stores;

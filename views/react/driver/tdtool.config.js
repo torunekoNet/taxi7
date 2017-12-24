@@ -57,7 +57,6 @@ if (isDebug) {
     if (TARGET !== 'build') {
         clientConfig.add('plugin.copydll', new CopyWebpackPlugin([{from: '../vendor/dll', to: 'dll'}]));
         clientConfig.add('plugin.copytdcicon', new CopyWebpackPlugin([{from: '../vendor/tdcicon', to: 'tdcicon'}]));
-        clientConfig.add('plugin.copyrefrain', new CopyWebpackPlugin([{from: '../refrain/dist', to: 'refrain'}]));
     }
     clientConfig.add('output.path', path.join(__dirname, 'dist'));
 } else {

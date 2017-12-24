@@ -9,7 +9,7 @@ const Textarea = Input.Textarea;
 @Form.create()
 @inject('productStore')
 @observer
-export default class SalesForm extends Component {
+export default class Product extends Component {
 
     handleSubmit = e => {
         e.preventDefault();

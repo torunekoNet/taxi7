@@ -5,12 +5,16 @@ import {Menu} from 'td-ui';
 const Item = Menu.Item;
 const menus = [{
     key: 'gateway',
-    display: '配件管理',
-    path: '/product'
+    display: '租赁',
+    path: '/'
+}, {
+    key: 'data2',
+    display: '车状态',
+    path: '/rental/vehicle'
 }, {
     key: 'data',
-    display: '流水数据',
-    path: '/product/assembly'
+    display: '驾驶员',
+    path: '/rental/driver'
 }];
 
 class Sidebar extends Component {
