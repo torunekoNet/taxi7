@@ -19,7 +19,11 @@ class AccountController extends Controller
     public function actionLogin()
     {
         if (!Yii::app()->user->isGuest) {
-            $this->redirect($this->createUrl('index/index'));
+            $returnUrl = $this->request->getQuery('returnUrl');
+            if (empty($returnUrl)) {
+                $returnUrl = $this->createUrl('index/index');
+            }
+            $this->redirect($returnUrl);
         }
 
         $model = new LoginForm();
