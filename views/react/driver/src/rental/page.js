@@ -61,7 +61,7 @@ export default class Rental extends Component {
 
     render() {
         const {rentalStore} = this.props;
-        const {driver} = rentalStore;
+        const {driver, vehicleList, driverList} = rentalStore;
 
         return (
             <div className="account-app account-content">
@@ -79,14 +79,10 @@ export default class Rental extends Component {
                             label="车牌">
                             <FormControl name="license" rules={[{required: true, message: '请输入汽车号牌'}]}>
                                 <AutoComplete
-                                    dataSource={[
-                                        {
-                                            text: "浙CA2304",
-                                            value: "浙CA2304"
-                                        }, {
-                                            text: "浙CB2304",
-                                            value: "浙CB2304"
-                                        }]}
+                                    dataSource={vehicleList.map(v => {
+                                        return {text: v.license, value: v.license}
+                                    })}
+                                    optionLabelProp="text"
                                     placeholder="汽车号牌"
                                 />
                             </FormControl>
@@ -103,9 +99,17 @@ export default class Rental extends Component {
                             label="驾驶员">
                             <FormControl name="driver" rules={[{required: true, message: '请输入驾驶员姓名'}]}>
                                 <AutoComplete
-                                    dataSource={[{text: "张三", value: "张三"}, {text: "李四", value: "李四"}]}
+                                    dataSource={driverList.map(d => {
+                                        return {text: d.name, value: d.name}
+                                    })}
+                                    optionLabelProp="text"
                                     placeholder="驾驶员姓名"
-                                    onSelect={value => rentalStore.setDriverName(value)}
+                                    onSelect={value => {
+                                        rentalStore.setDriverName(value)
+                                    }}
+                                    filterOption={(inputValue, options) => {
+                                        return options.props.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0;
+                                    }}
                                 />
                             </FormControl>
                         </FormItem>

@@ -8,7 +8,7 @@ export default class Store {
     @observable comment;
 
     constructor() {
-        this.searchAssembly(this.to, this.comment, 1)
+        // this.searchAssembly(this.to, this.comment, 1)
     }
 
     @action

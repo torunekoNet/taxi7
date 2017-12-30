@@ -1,14 +1,20 @@
-import {observable, action} from 'mobx';
+import {observable, action, computed, autorun} from 'mobx';
 
 export default class Store {
-    @observable list = [];
-    @observable pager = {};
+    @observable driverList = [];
+    @observable vehicleList = [];
 
-    @observable driver = {};
     @observable driverName;
 
-
     constructor() {
+        this.refreshDriverList();
+        this.refreshVehicleList();
+
+        autorun(() => {
+            if (this.driverName) {
+                this.refreshDriverList();
+            }
+        })
     }
 
     urlencoded(data) {
@@ -17,21 +23,33 @@ export default class Store {
             .map(key => `${key}=${encodeURIComponent(data[key])}`).join('&')
     }
 
+    @computed
+    get driver() {
+        return this.driverList.find(item => item.driver === this.driverName) || {};
+    }
+
+    @action
+    async refreshDriverList() {
+        const res = await fetch(`/driver/driver`, {
+            credentials: 'include'
+        }).then(res => res.json());
+        if (res.status === 0) {
+            this.driverList = res.data.list;
+        }
+    }
+
+    @action
+    async refreshVehicleList() {
+        const res = await fetch(`/driver/vehicle`, {
+            credentials: 'include'
+        }).then(res => res.json());
+        if (res.status === 0) {
+            this.vehicleList = res.data.list;
+        }
+    }
+
     @action
     setDriverName(name) {
         this.driverName = name;
-        if (this.driverName === '张三') {
-            this.driver = {
-                identity: '330304YYYYMMDD1234',
-                phone: '136XXXX1102'
-            }
-        } else if (this.driverName === '李四') {
-            this.driver = {
-                identity: '330304YYYYMMDD4321',
-                phone: '136XXXX2201'
-            }
-        } else {
-            this.driver = {}
-        }
     }
 }
