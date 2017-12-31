@@ -11,16 +11,6 @@ return array(
         'application.components.filters.*',
     ),
 
-    'modules' => array(
-        'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            'password' => '123',
-            // 'ipFilters'=>array(...IP 列表...),
-            // 'newFileMode'=>0666,
-            // 'newDirMode'=>0777,
-        ),
-    ),
-
     'components' => array(
         'user' => array(
             'allowAutoLogin' => true,
