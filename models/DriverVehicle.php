@@ -11,8 +11,9 @@
  * @property string $end_time
  * @property integer $type
  * @property integer $rent
+ * @property string $comment
  */
-class DriverVehicle extends RedActiveRecord
+class DriverVehicle extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -34,10 +35,10 @@ class DriverVehicle extends RedActiveRecord
 			array('type, rent', 'numerical', 'integerOnly'=>true),
 			array('driver', 'length', 'max'=>50),
 			array('license', 'length', 'max'=>25),
-			array('end_time', 'safe'),
+			array('end_time, comment', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, driver, license, begin_time, end_time, type, rent', 'safe', 'on'=>'search'),
+			array('id, driver, license, begin_time, end_time, type, rent, comment', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +66,7 @@ class DriverVehicle extends RedActiveRecord
 			'end_time' => 'End Time',
 			'type' => 'Type',
 			'rent' => 'Rent',
+			'comment' => 'Comment',
 		);
 	}
 
@@ -93,6 +95,7 @@ class DriverVehicle extends RedActiveRecord
 		$criteria->compare('end_time',$this->end_time,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('rent',$this->rent);
+		$criteria->compare('comment',$this->comment,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

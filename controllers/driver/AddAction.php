@@ -20,7 +20,8 @@ class AddAction extends RedAction
             'begin' => $this->request->getPost('begin'),
             'end' => $this->request->getPost('end'),
             'type' => $this->request->getPost('type'),
-            'rent' => $this->request->getPost('rent')
+            'rent' => $this->request->getPost('rent'),
+            'term' => $this->request->getPost('term')
         );
         if ($model->validate() && $model->save()) {
             $this->response(0, '添加成功');

@@ -9,12 +9,6 @@ export default class Store {
     constructor() {
         this.refreshDriverList();
         this.refreshVehicleList();
-
-        autorun(() => {
-            if (this.driverName) {
-                this.refreshDriverList();
-            }
-        })
     }
 
     urlencoded(data) {
@@ -25,7 +19,24 @@ export default class Store {
 
     @computed
     get driver() {
-        return this.driverList.find(item => item.driver === this.driverName) || {};
+        return this.driverList.find(item => item.name === this.driverName) || {};
+    }
+
+    @action
+    async create(data) {
+        const result = await fetch(`/driver/add`, {
+            credentials: 'include',
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            },
+            body: this.urlencoded(data)
+        }).then(res => res.json());
+        if (result.status === 0) {
+            this.refreshDriverList();
+            this.refreshVehicleList();
+        }
+        return result;
     }
 
     @action
@@ -34,7 +45,7 @@ export default class Store {
             credentials: 'include'
         }).then(res => res.json());
         if (res.status === 0) {
-            this.driverList = res.data.list;
+            this.driverList = res.data.list || [];
         }
     }
 
@@ -44,7 +55,7 @@ export default class Store {
             credentials: 'include'
         }).then(res => res.json());
         if (res.status === 0) {
-            this.vehicleList = res.data.list;
+            this.vehicleList = res.data.list || [];
         }
     }
 

@@ -1,34 +1,62 @@
-import {observable, action} from 'mobx';
+import {observable, action, computed, autorun} from 'mobx';
 
 export default class Store {
-    @observable list = [];
-    @observable pager = {};
+    @observable rentalStore;
 
-    @observable to;
-    @observable comment;
+    @observable driverName;
 
-    constructor() {
-        // this.searchAssembly(this.to, this.comment, 1)
+    @observable selectedDriver;
+    @observable showRecordPanel;
+    @observable recordList = [];
+    @observable recordPage = {};
+
+    constructor(rentalStore) {
+        this.rentalStore = rentalStore;
+
+        autorun(() => {
+            if (this.selectedDriver) {
+                this.refreshRecordList(1);
+            }
+        })
+    }
+
+    urlencoded(data) {
+        return Object.keys(data)
+            .filter(key => data[key] !== undefined && data[key] !== null)
+            .map(key => `${key}=${encodeURIComponent(data[key])}`).join('&')
+    }
+
+    @computed
+    get driverList() {
+        const driverList = this.rentalStore.driverList;
+        return this.driverName ? driverList.filter(item => {
+            return item.name.toLowerCase().indexOf(this.driverName.toLowerCase()) > 0
+        }) : driverList;
     }
 
     @action
-    async searchAssembly(to, comment, page) {
-        const res = await fetch(`/product/water?to=${to || ''}&comment=${comment || ''}&page=${page}`, {
-            credentials: 'include'
+    setDriverName(driverName) {
+        this.driverName = driverName;
+    }
+
+    @action
+    setSelectedDriver(driverName) {
+        this.selectedDriver = driverName;
+    }
+
+    @action
+    setShowRecordPanel(status) {
+        this.showRecordPanel = status;
+    }
+
+    @action
+    async refreshRecordList(page) {
+        const result = await fetch(`/driver/record?driver=${this.selectedDriver}&page=${page}`, {
+            credentials: 'include',
         }).then(res => res.json());
-        if (res.status === 0) {
-            this.list = res.data.list || [];
-            this.pager = res.data.pager || {}
+        if (result.status === 0) {
+            this.recordList = result.data.list || [];
+            this.recordPage = result.data.pager || {}
         }
-    }
-
-    @action
-    setTo(to) {
-        this.to = to;
-    }
-
-    @action
-    setComment(comment) {
-        this.comment = comment;
     }
 }

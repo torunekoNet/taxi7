@@ -20,7 +20,7 @@ class RecordAction extends RedAction
         $pager->setPageSize(20);
         $condition['offset'] = $pager->getOffset();
         $condition['limit'] = $pager->getLimit();
-        $condition['order'] = 'begin_time desc';
+        $condition['order'] = 'begin_time desc, id desc';
         $data = $model->findAll($condition);
         $this->response(0, "success", array(
             'list' => $data,

@@ -3,11 +3,13 @@ import RentalStore from './rental/store';
 import VehicleStore from './vehicle/store';
 import DriverStore from './driver/store';
 
+const rentalStore = new RentalStore();
+
 const stores = {
     appStore: new AppStore(),
-    rentalStore: new RentalStore(),
-    vehicleStore: new VehicleStore(),
-    driverStore: new DriverStore()
+    rentalStore: rentalStore,
+    vehicleStore: new VehicleStore(rentalStore),
+    driverStore: new DriverStore(rentalStore)
 };
 
 export default stores;

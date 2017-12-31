@@ -1,14 +1,12 @@
-import {observable, action} from 'mobx';
+import {observable, action, computed} from 'mobx';
 
 export default class Store {
-    @observable list = [];
-    @observable pager = {};
+    @observable rentalStore;
 
-    @observable driver = {};
-    @observable driverName;
+    @observable license;
 
-
-    constructor() {
+    constructor(rentalStore) {
+        this.rentalStore = rentalStore;
     }
 
     urlencoded(data) {
@@ -17,21 +15,33 @@ export default class Store {
             .map(key => `${key}=${encodeURIComponent(data[key])}`).join('&')
     }
 
+    @computed
+    get vehicleList() {
+        const vehicleList = this.rentalStore.vehicleList;
+        return this.license ? vehicleList.filter(item => {
+            return item.license.toLowerCase().indexOf(this.license.toLowerCase()) > 0
+        }) : vehicleList;
+    }
+
     @action
-    setDriverName(name) {
-        this.driverName = name;
-        if (this.driverName === '张三') {
-            this.driver = {
-                identity: '330304YYYYMMDD1234',
-                phone: '136XXXX1102'
-            }
-        } else if (this.driverName === '李四') {
-            this.driver = {
-                identity: '330304YYYYMMDD4321',
-                phone: '136XXXX2201'
-            }
-        } else {
-            this.driver = {}
+    setLicense(license) {
+        this.license = license;
+    }
+
+    @action
+    async chargeRent(data) {
+        const result = await fetch(`/driver/chargeRent`, {
+            credentials: 'include',
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            },
+            body: this.urlencoded(data)
+        }).then(res => res.json());
+        if (result.status === 0) {
+            this.rentalStore.refreshDriverList();
+            this.rentalStore.refreshVehicleList();
         }
+        return result;
     }
 }

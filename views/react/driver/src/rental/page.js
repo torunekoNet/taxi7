@@ -22,6 +22,7 @@ export default class Rental extends Component {
                 return;
             }
 
+            const {rentalStore} = this.props;
             const days = values.endTime.diff(values.beginTime, 'days')
 
             Dialog.confirm({
@@ -53,7 +54,26 @@ export default class Rental extends Component {
                 ),
                 width: 300,
                 onOk: () => {
-                    console.log(values);
+
+                    rentalStore.create({
+                        license: values.license,
+                        driver: values.driver,
+                        identity: values.identity,
+                        phone: values.phone,
+                        begin: values.beginTime.format('X'),
+                        end: values.endTime.format('X'),
+                        type: values.type - 1,
+                        rent: values.rent,
+                        term: days
+                    }).then(data => {
+                        if (data.status === 0) {
+                            Message.success(data.info);
+                            rentalStore.setDriverName(undefined);
+                            this.props.form.resetFields();
+                        } else {
+                            Message.warning(data.info);
+                        }
+                    });
                 }
             });
         });
