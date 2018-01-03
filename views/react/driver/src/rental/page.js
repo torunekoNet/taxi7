@@ -63,7 +63,7 @@ export default class Rental extends Component {
                         phone: values.phone,
                         begin: values.beginTime.format('X'),
                         end: values.endTime.format('X'),
-                        type: values.type - 1,
+                        type: values.type,
                         rent: values.rent,
                         comment: values.comment
                     }).then(data => {
