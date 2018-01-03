@@ -5,6 +5,8 @@ export default class Store {
     @observable vehicleList = [];
 
     @observable driverName;
+    @observable license;
+    @observable type;
 
     constructor() {
         this.refreshDriverList();
@@ -20,6 +22,11 @@ export default class Store {
     @computed
     get driver() {
         return this.driverList.find(item => item.name === this.driverName) || {};
+    }
+
+    @computed
+    get vehicle() {
+        return this.vehicleList.find(item => item.license === this.license) || {};
     }
 
     @action
@@ -62,5 +69,15 @@ export default class Store {
     @action
     setDriverName(name) {
         this.driverName = name;
+    }
+
+    @action
+    setLicense(license) {
+        this.license = license;
+    }
+
+    @action
+    setType(type) {
+        this.type = type;
     }
 }

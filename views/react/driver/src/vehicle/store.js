@@ -19,7 +19,7 @@ export default class Store {
     get vehicleList() {
         const vehicleList = this.rentalStore.vehicleList;
         return this.license ? vehicleList.filter(item => {
-            return item.license.toLowerCase().indexOf(this.license.toLowerCase()) > 0
+            return item.license.toLowerCase().indexOf(this.license.toLowerCase()) >= 0
         }) : vehicleList;
     }
 

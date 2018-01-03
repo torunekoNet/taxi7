@@ -30,7 +30,7 @@ export default class Store {
     get driverList() {
         const driverList = this.rentalStore.driverList;
         return this.driverName ? driverList.filter(item => {
-            return item.name.toLowerCase().indexOf(this.driverName.toLowerCase()) > 0
+            return item.name.toLowerCase().indexOf(this.driverName.toLowerCase()) >= 0
         }) : driverList;
     }
 

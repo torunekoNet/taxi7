@@ -8,10 +8,6 @@ const menus = [{
     display: '租赁',
     path: '/'
 }, {
-    key: 'data2',
-    display: '车状态',
-    path: '/rental/vehicle'
-}, {
     key: 'data',
     display: '驾驶员',
     path: '/rental/driver'

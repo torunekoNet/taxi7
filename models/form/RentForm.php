@@ -17,7 +17,7 @@ class RentForm extends CFormModel
     public $end;
     public $type;
     public $rent;
-    public $term;
+    public $comment;
 
     public function rules()
     {
@@ -31,8 +31,7 @@ class RentForm extends CFormModel
             array('end', 'required', 'message' => '请选择' . $labels['end']),
             array('type', 'required', 'message' => '请选择' . $labels['type']),
             array('rent', 'required', 'message' => '请选择' . $labels['rent']),
-            array('term', 'required', 'message' => $labels['term'] . '错误'),
-            array('license', 'safe'),
+            array('license, comment', 'safe'),
         );
     }
 
@@ -46,8 +45,7 @@ class RentForm extends CFormModel
             'begin' => '开始时间',
             'end' => '结束时间',
             'type' => '班次',
-            'rent' => '日租金',
-            'term' => '租期'
+            'rent' => '日租金'
         );
     }
 
@@ -64,8 +62,10 @@ class RentForm extends CFormModel
                 'driver' => $this->driver,
                 'license' => $this->license,
                 'begin_time' => date('Y-m-d', $this->begin),
+                'end_time' => date('Y-m-d', $this->end),
                 'type' => $this->type,
-                'rent' => 0
+                'rent' => round($this->rent * 100, 0),
+                'comment' => $this->comment
             );
 
             if (!$driverVehicle->save()) {
@@ -78,36 +78,24 @@ class RentForm extends CFormModel
             if (empty($vehicle)) {
                 $vehicle = new Vehicle();
             }
-
-            $data = array(
-                'license' => $this->license
-            );
-            //白
-            if ($this->type == 0 || $this->type == 2) {
-                $data['day_begin_time'] = date('Y-m-d', $this->begin);
-                $data['day_end_time'] = date('Y-m-d', $this->end);
-                $data['day_driver'] = $this->driver;
-                $data['day_identity'] = $this->identity;
-                $data['day_phone'] = $this->phone;
-                $data['day_rent'] = round($this->rent * 100, 0);
-                $data['day_term'] = $this->term;
-                $data['day_record'] = $driverVehicle->getPrimaryKey();
+            if ($this->type == 0) {
+                $vehicle->attributes = array(
+                    'license' => $this->license,
+                    'day_rent' => round($this->rent * 100, 0)
+                );
+            } elseif ($this->type == 1) {
+                $vehicle->attributes = array(
+                    'license' => $this->license,
+                    'night_rent' => round($this->rent * 100, 0)
+                );
+            } else {
+                $vehicle->attributes = array(
+                    'license' => $this->license,
+                    'rent' => round($this->rent * 100, 0)
+                );
             }
-            //夜
-            if ($this->type == 1 || $this->type == 2) {
-                $data['night_begin_time'] = date('Y-m-d', $this->begin);
-                $data['night_end_time'] = date('Y-m-d', $this->end);
-                $data['night_driver'] = $this->driver;
-                $data['night_identity'] = $this->identity;
-                $data['night_phone'] = $this->phone;
-                $data['night_rent'] = round($this->rent * 100, 0);
-                $data['night_term'] = $this->term;
-                $data['night_record'] = $driverVehicle->getPrimaryKey();
-            }
-
-            $vehicle->attributes = $data;
             if (!$vehicle->save()) {
-                throw new CDbException('更新车状态失败', 20, $vehicle->getErrors());
+                throw new CDbException('更新车数据失败', 10, $vehicle->getErrors());
             }
 
             //查看驾驶员表

@@ -6,6 +6,7 @@ import {Input, Row, Col, Message, Form, Button, AutoComplete, DatePicker, Radio,
 const FormItem = Form.Item;
 const FormControl = Form.Control;
 const RadioGroup = Radio.RadioGroup;
+const Textarea = Input.Textarea;
 
 const types = ["白班", "夜班", "全天"];
 
@@ -23,7 +24,7 @@ export default class Rental extends Component {
             }
 
             const {rentalStore} = this.props;
-            const days = values.endTime.diff(values.beginTime, 'days')
+            const days = values.endTime.diff(values.beginTime, 'days') + 1;
 
             Dialog.confirm({
                 title: '信息确认',
@@ -42,13 +43,13 @@ export default class Rental extends Component {
                             预计到期: {values.endTime.format('YYYY-MM-DD')}
                         </Col>
                         <Col>
-                            班次：{types[values.type - 1]}
+                            班次：{types[values.type]}
                         </Col>
                         <Col>
                             日租金: {values.rent} 元
                         </Col>
                         <Col>
-                            预计: {days * values.rent} 元 / {days} 天
+                            总租金: {days * values.rent} 元 / {days} 天
                         </Col>
                     </Row>
                 ),
@@ -64,11 +65,12 @@ export default class Rental extends Component {
                         end: values.endTime.format('X'),
                         type: values.type - 1,
                         rent: values.rent,
-                        term: days
+                        comment: values.comment
                     }).then(data => {
                         if (data.status === 0) {
                             Message.success(data.info);
                             rentalStore.setDriverName(undefined);
+                            rentalStore.setLicense(undefined);
                             this.props.form.resetFields();
                         } else {
                             Message.warning(data.info);
@@ -81,7 +83,7 @@ export default class Rental extends Component {
 
     render() {
         const {rentalStore} = this.props;
-        const {driver, vehicleList, driverList} = rentalStore;
+        const {type, driver, vehicle, vehicleList, driverList} = rentalStore;
 
         return (
             <div className="account-app account-content">
@@ -102,8 +104,9 @@ export default class Rental extends Component {
                                     dataSource={vehicleList.map(v => {
                                         return {text: v.license, value: v.license}
                                     })}
-                                    optionLabelProp="text"
                                     placeholder="汽车号牌"
+                                    onSelect={value => rentalStore.setLicense(value)}
+                                    onChange={value => rentalStore.setLicense(value)}
                                 />
                             </FormControl>
                         </FormItem>
@@ -122,11 +125,9 @@ export default class Rental extends Component {
                                     dataSource={driverList.map(d => {
                                         return {text: d.name, value: d.name}
                                     })}
-                                    optionLabelProp="text"
                                     placeholder="驾驶员姓名"
-                                    onSelect={value => {
-                                        rentalStore.setDriverName(value)
-                                    }}
+                                    onSelect={value => rentalStore.setDriverName(value)}
+                                    onChange={value => rentalStore.setDriverName(value)}
                                     filterOption={(inputValue, options) => {
                                         return options.props.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0;
                                     }}
@@ -188,8 +189,8 @@ export default class Rental extends Component {
                                 xs: {span: 16},
                                 sm: {span: 20}
                             }}
-                            label="预计到期">
-                            <FormControl name="endTime" initialValue={moment().add(10, 'days')}>
+                            label="到期时间">
+                            <FormControl name="endTime" initialValue={moment().add(9, 'days')}>
                                 <DatePicker format="YYYY-MM-DD" allowClear={false}/>
                             </FormControl>
                         </FormItem>
@@ -203,11 +204,11 @@ export default class Rental extends Component {
                                 sm: {span: 20}
                             }}
                             label="班次">
-                            <FormControl name="type" initialValue={1}>
-                                <RadioGroup>
-                                    <Radio value={1}>白班</Radio>
-                                    <Radio value={2}>夜班</Radio>
-                                    <Radio value={3}>全天</Radio>
+                            <FormControl name="type" initialValue={type}>
+                                <RadioGroup onChange={e => rentalStore.setType(e.target.value)}>
+                                    <Radio value={0}>白班</Radio>
+                                    <Radio value={1}>夜班</Radio>
+                                    <Radio value={2}>全天</Radio>
                                 </RadioGroup>
                             </FormControl>
                         </FormItem>
@@ -221,13 +222,33 @@ export default class Rental extends Component {
                                 sm: {span: 20}
                             }}
                             label="日租金">
-                            <FormControl name="rent" rules={[{
-                                required: true,
-                                type: 'number',
-                                message: '请输入日租金',
-                                transform: e => parseInt(e)
-                            }]}>
+                            <FormControl name="rent"
+                                         initialValue={
+                                             type === 0 ? (vehicle.day_rent || 0) / 100 :
+                                                 type === 1 ? (vehicle.night_rent || 0) / 100 :
+                                                     type === 2 ? (vehicle.rent || 0) / 100 : 0
+                                         }
+                                         rules={[{
+                                             required: true,
+                                             type: 'number',
+                                             message: '请输入日租金',
+                                             transform: e => parseInt(e)
+                                         }]}>
                                 <Input placeholder="日租金"/>
+                            </FormControl>
+                        </FormItem>
+                        <FormItem
+                            labelCol={{
+                                xs: {span: 6},
+                                sm: {span: 2}
+                            }}
+                            wrapperCol={{
+                                xs: {span: 16},
+                                sm: {span: 20}
+                            }}
+                            label="备注">
+                            <FormControl name="comment">
+                                <Textarea placeholder="备注"/>
                             </FormControl>
                         </FormItem>
                         <Row>

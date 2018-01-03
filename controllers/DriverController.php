@@ -9,7 +9,7 @@ class DriverController extends Controller
 {
     public function getActions()
     {
-        return array('driver', 'vehicle', 'record', 'add', 'chargeRent');
+        return array('driver', 'vehicle', 'record', 'add');
     }
 
     public function createSearchCriteria($data = array(), $like = true)
