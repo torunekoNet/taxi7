@@ -4,13 +4,17 @@ import {Menu} from 'td-ui';
 
 const Item = Menu.Item;
 const menus = [{
-    key: 'gateway',
+    key: 'rental',
     display: '租赁',
     path: '/'
 }, {
-    key: 'data',
+    key: 'driver',
     display: '驾驶员',
-    path: '/rental/driver'
+    path: '/driver'
+}, {
+    key: 'statistics',
+    display: '  统计',
+    path: '/statistics'
 }];
 
 class Sidebar extends Component {

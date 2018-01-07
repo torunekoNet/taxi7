@@ -13,7 +13,7 @@
  * @property integer $rent
  * @property string $comment
  */
-class DriverVehicle extends CActiveRecord
+class DriverVehicle extends RedActiveRecord
 {
 	/**
 	 * @return string the associated database table name

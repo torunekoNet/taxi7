@@ -16,19 +16,9 @@ class VehicleAction extends RedAction
         $model = Vehicle::model();
         $model->attributes = $query;
         $condition = $this->createSearchCriteria($query);
-//        $pager = new CPagination($model->count($condition));
-//        $pager->setPageSize(20);
-//        $condition['offset'] = $pager->getOffset();
-//        $condition['limit'] = $pager->getLimit();
         $data = $model->findAll($condition);
         $this->response(0, "success", array(
-            'list' => $data,
-//            'pager' => array(
-//                'pageSize' => $pager->getPageSize(),
-//                'pageCount' => $pager->getPageCount(),
-//                'itemCount' => (int) $pager->getItemCount(),
-//                'currentPage' => $pager->getCurrentPage()
-//            )
+            'list' => $data
         ));
     }
 }

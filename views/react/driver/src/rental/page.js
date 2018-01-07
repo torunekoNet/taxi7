@@ -107,6 +107,9 @@ export default class Rental extends Component {
                                     placeholder="汽车号牌"
                                     onSelect={value => rentalStore.setLicense(value)}
                                     onChange={value => rentalStore.setLicense(value)}
+                                    filterOption={(inputValue, options) => {
+                                        return options.props.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0;
+                                    }}
                                 />
                             </FormControl>
                         </FormItem>
