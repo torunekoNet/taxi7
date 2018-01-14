@@ -4,6 +4,7 @@ export default class Store {
     @observable rentalStore;
 
     @observable driverName;
+    @observable currentPage = 1;
 
     @observable selectedDriver;
     @observable showRecordPanel;
@@ -47,6 +48,26 @@ export default class Store {
     @action
     setShowRecordPanel(status) {
         this.showRecordPanel = status;
+    }
+
+    @action setCurrentPage(page) {
+        this.currentPage = page;
+    }
+
+    @action
+    async removeRecord(id) {
+        const result = await fetch(`/driver/remove`, {
+            credentials: 'include',
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            },
+            body: this.urlencoded({id : id})
+        }).then(res => res.json());
+        if (result.status === 0) {
+            this.refreshRecordList(1)
+        }
+        return result;
     }
 
     @action

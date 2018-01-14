@@ -46,10 +46,10 @@ export default class Rental extends Component {
                             班次：{types[values.type]}
                         </Col>
                         <Col>
-                            日租金: {values.rent} 元
+                            租金: {values.rent} 元 / {days} 天
                         </Col>
                         <Col>
-                            总租金: {days * values.rent} 元 / {days} 天
+                            日租金: {(values.rent / days).toFixed(2)} 元
                         </Col>
                     </Row>
                 ),
@@ -179,7 +179,7 @@ export default class Rental extends Component {
                                 sm: {span: 20}
                             }}
                             label="租车时间">
-                            <FormControl name="beginTime" initialValue={moment()}>
+                            <FormControl name="beginTime" initialValue={moment().startOf('day')}>
                                 <DatePicker format="YYYY-MM-DD" allowClear={false}/>
                             </FormControl>
                         </FormItem>
@@ -193,7 +193,7 @@ export default class Rental extends Component {
                                 sm: {span: 20}
                             }}
                             label="到期时间">
-                            <FormControl name="endTime" initialValue={moment().add(9, 'days')}>
+                            <FormControl name="endTime" initialValue={moment().startOf('day').add(9, 'days')}>
                                 <DatePicker format="YYYY-MM-DD" allowClear={false}/>
                             </FormControl>
                         </FormItem>
@@ -224,7 +224,7 @@ export default class Rental extends Component {
                                 xs: {span: 16},
                                 sm: {span: 20}
                             }}
-                            label="日租金">
+                            label="租金">
                             <FormControl name="rent"
                                          initialValue={
                                              type === 0 ? (vehicle.day_rent || 0) / 100 :
@@ -234,10 +234,10 @@ export default class Rental extends Component {
                                          rules={[{
                                              required: true,
                                              type: 'number',
-                                             message: '请输入日租金',
+                                             message: '请输入租金',
                                              transform: e => parseInt(e)
                                          }]}>
-                                <Input placeholder="日租金"/>
+                                <Input placeholder="租金"/>
                             </FormControl>
                         </FormItem>
                         <FormItem
