@@ -100,7 +100,7 @@ export default class Driver extends Component {
     renderDriver() {
         const {driverStore} = this.props;
         const {driverName, driverList, currentPage} = driverStore;
-        const pageSize = 1;
+        const pageSize = 10;
 
         return (
             <div className="account-app account-content">

@@ -13,7 +13,7 @@ class IndexController extends Controller
     {
         $this->layout = '/layouts/react';
         $this->render('index', array(
-            'jsVersion' => '1512802105'
+            'jsVersion' => '1512802205'
         ));
     }
 
@@ -21,7 +21,7 @@ class IndexController extends Controller
     {
         $this->layout = '/layouts/react';
         $this->render('driver', array(
-            'jsVersion' => '1512802105'
+            'jsVersion' => '1512802205'
         ));
     }
 
