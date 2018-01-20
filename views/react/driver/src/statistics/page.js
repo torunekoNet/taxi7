@@ -38,9 +38,7 @@ export default class Rental extends Component {
     render() {
         const {statisticsStore, rentalStore} = this.props;
         const {vehicleList, driverList} = rentalStore;
-        const {statistic, recordList, recordPage} = statisticsStore;
-
-        console.log(recordList.toJS());
+        const {statistic, totalDay, recordList, recordPage} = statisticsStore;
 
         return (
             <div className="account-app account-content">
@@ -164,6 +162,7 @@ export default class Rental extends Component {
                 <div className="account-content-container" style={{padding: 10}}>
                     <Row>
                         <Col>总租金：{statistic / 100}</Col>
+                        <Col>总天数：{totalDay}</Col>
                         <Col>
                             <Table
                                 dataSource={recordList.toJS()}

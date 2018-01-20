@@ -35,6 +35,7 @@ class StatisticAction extends RedAction
         $this->response(0, "success", array(
             'list' => $data,
             'sum' => $model->sum('rent', $condition['condition'], $condition['params']),
+            'total' => $model->sum('total_time', $condition['condition'], $condition['params']),
             'pager' => array(
                 'pageSize' => $pager->getPageSize(),
                 'pageCount' => $pager->getPageCount(),

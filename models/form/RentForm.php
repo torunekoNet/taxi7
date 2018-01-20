@@ -56,6 +56,7 @@ class RentForm extends CFormModel
         $app = Yii::app();
         $transaction = $app->db->beginTransaction();
         try {
+            $totalTime = round(($this->end - $this->begin) / 86400) + 1;
             //写驾驶记录
             $driverVehicle = new DriverVehicle();
             $driverVehicle->attributes = array(
@@ -63,6 +64,7 @@ class RentForm extends CFormModel
                 'license' => $this->license,
                 'begin_time' => date('Y-m-d', $this->begin),
                 'end_time' => date('Y-m-d', $this->end),
+                'total_time' => $totalTime,
                 'type' => $this->type,
                 'rent' => round($this->rent * 100, 0),
                 'comment' => $this->comment

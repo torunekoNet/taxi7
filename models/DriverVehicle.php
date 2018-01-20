@@ -9,6 +9,7 @@
  * @property string $license
  * @property string $begin_time
  * @property string $end_time
+ * @property integer $total_time
  * @property integer $type
  * @property integer $rent
  * @property string $comment
@@ -32,13 +33,13 @@ class DriverVehicle extends RedActiveRecord
 		// will receive user inputs.
 		return array(
 			array('driver, license, begin_time, type, rent', 'required'),
-			array('type, rent', 'numerical', 'integerOnly'=>true),
+			array('total_time, type, rent', 'numerical', 'integerOnly'=>true),
 			array('driver', 'length', 'max'=>50),
 			array('license', 'length', 'max'=>25),
 			array('end_time, comment', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, driver, license, begin_time, end_time, type, rent, comment', 'safe', 'on'=>'search'),
+			array('id, driver, license, begin_time, end_time, total_time, type, rent, comment', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +65,7 @@ class DriverVehicle extends RedActiveRecord
 			'license' => 'License',
 			'begin_time' => 'Begin Time',
 			'end_time' => 'End Time',
+			'total_time' => 'Total Time',
 			'type' => 'Type',
 			'rent' => 'Rent',
 			'comment' => 'Comment',
@@ -93,6 +95,7 @@ class DriverVehicle extends RedActiveRecord
 		$criteria->compare('license',$this->license,true);
 		$criteria->compare('begin_time',$this->begin_time,true);
 		$criteria->compare('end_time',$this->end_time,true);
+		$criteria->compare('total_time',$this->total_time);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('rent',$this->rent);
 		$criteria->compare('comment',$this->comment,true);

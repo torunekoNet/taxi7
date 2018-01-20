@@ -6,6 +6,7 @@ export default class Store {
     @observable recordList = [];
     @observable recordPage = {};
     @observable statistic = 0;
+    @observable totalDay = 0;
 
     @observable license;
     @observable dirver;
@@ -34,7 +35,8 @@ export default class Store {
         if (result.status === 0) {
             this.recordList = result.data.list || [];
             this.recordPage = result.data.pager || {};
-            this.statistic = result.data.sum || 0
+            this.statistic = result.data.sum || 0;
+            this.totalDay = result.data.total || 0;
         }
     }
 }
